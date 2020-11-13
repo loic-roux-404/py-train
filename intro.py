@@ -46,4 +46,6 @@ print(listEx)
 print('\nlist sort')
 # [expression for x in sequence if conditionnelle]
 t = (11, 22, 33)
-print(2**)
+
+def calculMini():
+	
