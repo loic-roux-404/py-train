@@ -47,5 +47,17 @@ print('\nlist sort')
 # [expression for x in sequence if conditionnelle]
 t = (11, 22, 33)
 
-def calculMini():
-	
+
+def calculMini(x, y):
+	if (x == y): raise ArithmeticError('%s is equal to %s' % (x, y))
+	return x if x < y else y;
+
+try:
+	toCompare1 = (1, 2)
+	print("Comparison 1", toCompare1, calculMini(*toCompare1))
+	toCompare2 = (1, 1)
+	print("Comparison 2: ", end="")
+	print(toCompare2, calculMini(*toCompare2))
+except ArithmeticError as err:
+	print(err)
+
