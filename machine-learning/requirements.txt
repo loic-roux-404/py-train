@@ -1,0 +1,13 @@
+jupyter
+matplotlib
+numexpr
+numpy
+pandas
+Pillow
+protobuf
+psutil
+scikit-learn
+scipy
+sympy
+tensorflow>=1.6.0
+opencv-python
