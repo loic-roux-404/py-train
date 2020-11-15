@@ -1,6 +1,6 @@
 # Recherche opérationnelle
 
-[**PDF**](intro.pdf)
+[**PDF**](cour-0-intro.pdf)
 
 ### Cours Prérequis
 

@@ -1,6 +1,7 @@
 # Ia
 
-[**PDF**](linear-prog.pdf)
+[**Cour 1**](cour-1-prog-lineaire.pdf)
+[**Cour 2**](cour-2-simplexe.pdf)
 
 ## Python bindings
 

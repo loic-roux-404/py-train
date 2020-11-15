@@ -1,8 +1,8 @@
 # Cours basés sur python
 
-1. [Algorithmique avancée et structures de données](Algo)
+1. [Algorithmique avancée et structures de données](#Algo)
 
-1. [IA et recherche opérationnelle](AI)
+1. [IA et recherche opérationnelle](#AI)
 
 # Algo
 > **Algorithmique avancée et structures de données**
@@ -51,4 +51,4 @@
 ## Courses
 
 1. [Introduction RO & IA](doc/op-research/intro.md)
-1. [Programmation linéaire](doc/op-research/linear-prog.md)
+1. [Programmation linéaire](doc/op-research/linear-prog-simplexes.md)
