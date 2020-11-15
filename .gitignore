@@ -198,5 +198,4 @@ coverage.xml
 *.pot
 
 config.yaml
-
-
+.vscode/settings.json
