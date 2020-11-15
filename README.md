@@ -24,7 +24,11 @@
 - structure de données évoluée : ensembles, listes, dict,...
 - open source / beaucoup de documentation
 
-1. Tris
+1. Debug
+
+- Coeff binomial `python advanced-algo/intro.py`
+- Coeff binomial `python advanced-algo/recursions/simple.py`
+- Tri fusion `python advanced-algo/recursions/mergeSort.py`
 
 ## Env
 
@@ -46,5 +50,5 @@
 
 ## Courses
 
-1. [Introduction RO & IA](doc/intro.md)
-1. [Programmation linéaire](doc/linear-prog.md)
+1. [Introduction RO & IA](doc/op-research/intro.md)
+1. [Programmation linéaire](doc/op-research/linear-prog.md)
