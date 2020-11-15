@@ -41,6 +41,7 @@
 
 - Required `conda` package manager [(download windows)](https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe)
 - Add more packages channels : `conda config --add channels conda-forge`
+- Open shell in `./op-research`
 - Create env : `conda create --name r-o python=3.8 --file requirements.txt`
 - Launch : `conda activate r-o`
 - Jupyter notebook : `jupyter notebook --generate-config`
