@@ -7,7 +7,7 @@ statsmodels
 scikit-learn
 seaborn
 # Linear problems lib
-PuLP
+pulp==2.3.1
 # jupyter on vscode requirements
 jupyter
 ipykernel

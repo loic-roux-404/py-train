@@ -41,8 +41,11 @@
 
 - Required `conda` package manager [(download windows)](https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe)
 - Add more packages channels : `conda config --add channels conda-forge`
-- Open shell in `./op-research`
-- Create env : `conda create -y --name op-research python=3.8 --file requirements.txt`
+- Create env :
+```sh
+conda create -y --name op-research python=3.7 --file op-research/requirements.txt
+```
+
 - Launch : `conda activate op-research`
 - Switch python interpreter to this env on Vscode bottom left
 - (Optional) Jupyter notebook : `jupyter notebook --generate-config`
