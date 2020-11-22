@@ -1,4 +1,4 @@
 {
     "python.formatting.provider": "black",
-    "python.pythonPath": "python"
+    "python.pythonPath": "/usr/local/Caskroom/miniconda/base/envs/op-research/bin/python"
 }
