@@ -1,0 +1,13 @@
+# Operational research libs
+scipy
+numpy
+matplotlib
+pandas
+statsmodels
+scikit-learn
+seaborn
+# Linear problems lib
+PuLP
+# jupyter on vscode requirements
+jupyter
+ipykernel
