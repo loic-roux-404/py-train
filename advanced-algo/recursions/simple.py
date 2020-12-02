@@ -35,3 +35,34 @@ def coeff(n, k):
 n, k = (49, 5)
 
 print(coeff(n, k))
+
+# TP
+# deux fn => façon itérative et recursive de la puissance n de x
+
+# Ex
+def factorielle_iterative(n):
+		res = 1
+		for i in range(2, n + 1):
+			res *= i
+		return res
+
+
+# 1 : forme iterative x^n
+
+def puissance(x, n):
+		# 2 * 3
+		res = 1
+		for i in range(0, n):
+			res *= x
+
+		return res
+
+print(puissance(2, 3))
+
+# def recursive
+def puissance_rec(x, n):
+		if n == 0:
+			return 1
+
+		else:
+			return x*puissance_rec(x, n -1)

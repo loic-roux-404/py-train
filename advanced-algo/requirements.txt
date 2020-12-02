@@ -1,0 +1,3 @@
+# jupyter on vscode requirements
+jupyter
+ipykernel
