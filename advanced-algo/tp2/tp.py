@@ -21,6 +21,7 @@ print(Hamming("444", "244"))
 
 # Anagram
 def isSame(str1, str2):
+    # Loop an array of bytes, ex : [35, 40, 34]
     for i in list(bytes(str1.lower().encode('utf8'))):
         if i not in list(bytes(str2.lower().encode('utf8'))):
             return False
