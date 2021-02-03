@@ -26,8 +26,12 @@ conda create -y --name op-research python=3.7 --file src/requirements.txt
 
 ## TDD
 
+Le TDD est un moyen simple de garantir le fonctionnement complet d'un programme en testant celui-ci avec divers jeux de données.
+
 - Enable with this line on top `from tests import run`
 - Use with `run()` function :
+
+> **Attention**: Bien laisser le fichier python dans ce dossier
 
 Voilà comment faire :
 
@@ -44,7 +48,7 @@ def syracuse(start, query, sequence = []):
 # - Une clé "args" qui contient un autre dict avec les arguments passés dans la fonction,
 #   ces clés du dict (ex "start": 14) doivent avoir exactement le même nom que
 #   les arguments de la fonction
-# - Une clé "result" qui doit être le résultat renvoyer par la fonction
+# - Une clé "result" qui doit être le résultat renvoyé par la fonction
 run(syracuse, [
     {'args': {'start': 14, 'query': 5}, 'result': 34},
     {'args': {'start': 14, 'query': 2}, 'result': 7},
