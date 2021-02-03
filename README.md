@@ -1,41 +1,14 @@
-# Cours basés sur python
+# DS Algo
 
-1. [Algorithmique avancée et structures de données](#Algo)
-
-1. [IA et recherche opérationnelle](#AI)
-
-# Algo
 > **Algorithmique avancée et structures de données**
 
 #### 0. Requis
 
 - `python 3.x`
 
-#### 1. Introduction : algorithmes
-
-- Organigrammes (losange pour représenter une condition)
-- Suite de syracuse
-- scratch (algo GUI)
-- Q# --> simulation des proc quantiques
-
-#### 2. Python
-
-- haut niveau
-- structure de données évoluée : ensembles, listes, dict,...
-- open source / beaucoup de documentation
-
-1. Debug
-
-- Coeff binomial `python advanced-algo/intro.py`
-- Coeff binomial `python advanced-algo/recursions/simple.py`
-- Tri fusion `python advanced-algo/recursions/mergeSort.py`
-
 ## Env
 
 - `conda` package manager recommanded (installed over miniconda)
-
-# AI
-> Ia et recherche opérationnelle
 
 ## Install
 
@@ -43,17 +16,39 @@
 - Add more packages channels : `conda config --add channels conda-forge`
 - Create env :
 ```sh
-conda create -y --name op-research python=3.7 --file op-research/requirements.txt
+conda create -y --name op-research python=3.7 --file src/requirements.txt
 ```
 
-- Launch : `conda activate op-research`
-- Switch python interpreter to this env on Vscode bottom left
-- (Optional) Jupyter notebook : `jupyter notebook --generate-config`
-- To stop venv : `conda deactivate`
+## Start jupyter
 
-> For more on conda : [Here the cheatseet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)
+- `conda activate op-research`
+- `cd src/ && jupyter notebook`
 
-## Courses
+## TDD
 
-1. [Introduction RO & IA](doc/op-research/intro.md)
-1. [Programmation linéaire](doc/op-research/linear-prog-simplexes.md)
+- Enable with this line on top `from tests import run`
+- Use with `run()` function :
+
+Voilà comment faire :
+
+```py
+# Import du module python
+from tests import run
+
+def syracuse(start, query, sequence = []):
+    # Ici le code fonctionnel requis par l'exercice
+    pass
+
+# Arg 1 : Fonction sans les arguments
+# Arg 2, Un dictionnaire / objet python avec comme structure :
+# - Une clé "args" qui contient un autre dict avec les arguments passés dans la fonction,
+#   ces clés du dict (ex "start": 14) doivent avoir exactement le même nom que
+#   les arguments de la fonction
+# - Une clé "result" qui doit être le résultat renvoyer par la fonction
+run(syracuse, [
+    {'args': {'start': 14, 'query': 5}, 'result': 34},
+    {'args': {'start': 14, 'query': 2}, 'result': 7},
+    {'args': {'start': 14, 'query': 1}, 'result': 14},
+])
+
+```
