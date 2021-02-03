@@ -1,8 +1,4 @@
 # Add tests module
-import sys
-import os
-sys.path.append(os.path.abspath(__file__ + '/../../modules'))
-
 from tests import run
 
 def syracuse(start, query, sequence = []):
