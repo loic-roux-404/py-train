@@ -1,5 +1,6 @@
 {
     "python.formatting.provider": "black",
     "python.pythonPath": "/usr/local/Caskroom/miniconda/base/envs/op-research/bin/python",
-    "python.dataScience.jupyterServerURI": "local"
+    "python.dataScience.jupyterServerURI": "local",
+    "python.languageServer": "Pylance"
 }

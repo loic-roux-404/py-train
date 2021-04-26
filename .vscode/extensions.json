@@ -3,6 +3,7 @@
         "liximomo.sftp",
         "ms-python.python",
         "magicstack.magicpython",
-        "wholroyd.jinja"
+        "wholroyd.jinja",
+        "ms-python.vscode-pylance"
     ]
 }
