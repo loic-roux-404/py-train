@@ -1,0 +1,169 @@
+Python B3 - 21/05/2021
+Le Lecteur immersif dans Microsoft Forms vous permet d’entendre le texte d’un titre de formulaire et les questions lues à haute voix tout en suivant le propos. Vous pouvez trouver le bouton du Lecteur immersif près des questions ou du titre du formulaire après l’activation de ce contrôle. Vous pouvez également modifier l’espacement des lignes et des mots pour les rendre plus lisibles, surligner des parties de parole et des syllabes, sélectionner un mot ou des lignes de mots lus à haute voix, et sélectionner les préférences de langue.
+Bonjour Loïc. Lorsque vous enverrez ce formulaire, son propriétaire pourra voir votre nom et votre adresse de courrier.
+Obligatoire
+1.Commentez dans le détail le code suivant :
+"""
+Created on Tue Apr 27 17:16:31 2021
+
+@author: bebo
+"""
+
+import time
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# x^2 + y^2 = z^2 tg^2 (angle)
+
+for i in range(100) :
+    theta = np.linspace(-4 * np.pi, 4 * np.pi, i)
+    z = np.linspace(-2, 0, i)  # Création du tableau de l'axe z entre -2 et 2
+
+    r = z**2 + 1
+    x = r * np.sin(theta)  # Création du tableau de l'axe x
+    y = r * np.cos(theta)  # Création du tableau de l'axe y
+
+    # Tracé du résultat en 3D
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')  # Affichage en 3D
+    ax.plot(x, y, z)  # Tracé de la courbe 3D
+
+    plt.title("Courbe 3D")
+
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    plt.tight_layout()
+
+    plt.show()
+    time.sleep(0.10)Lecteur immersif
+# Chaine de caractère multiligne
+# format pydocs
+"""
+Created on Tue Apr 27 17:16:31 2021
+
+@author: bebo
+"""
+
+# import des librairies
+import time # manipulation de temps
+import numpy as np # librairie mathématique
+import matplotlib.pyplot as plt # Génération de graphiques
+
+
+# x^2 + y^2 = z^2 tg^2 (angle)
+# Boucle avec 100 itétation, i vaut l'index l'itétation courante
+for i in range(100) :
+    theta = np.linspace(-4 * np.pi, 4 * np.pi, i) # création du  cadre du graphique et de graduations
+    z = np.linspace(-2, 0, i)  # Création du tableau de l'axe z entre -2 et 2
+
+    r = z**2 + 1 # radius
+    x = r * np.sin(theta)  # Création du tableau de l'axe x
+    y = r * np.cos(theta)  # Création du tableau de l'axe y
+
+    # Tracé du résultat en 3D
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')  # Affichage en 3D
+    ax.plot(x, y, z)  # Tracé de la courbe 3D
+
+    plt.title("Courbe 3D") # Nommer le graphique
+
+    # Label des axes
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    # Ajustement auto des plots
+    plt.tight_layout()
+
+    plt.show() # Afficher le graphique
+    # attendre 0.10 seconde avant la prochaine itétation
+    time.sleep(0.10)
+
+2.Commentez dans le detail le code suivant :
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Apr 27 16:12:19 2021
+
+@author: bebo
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x=np.linspace(-30,30,1000)
+
+###### hyperbole  (x^2 /a^2) - (y^2 / b^2)= 1 a= 2 b =1
+######       (x^2 /2^2) -  (y^2 /1^2 )  =1
+######       y = sqrt( ( x^2 /4) - 1)
+
+yh = np.sqrt(((x**2)/4) - 1) # ne pas utiliser math.sqrt !!!!
+
+### RuntimeWarning: invalid value encountered in sqrt x == 0 --> A commenter
+
+plt.axhline(y = 0, color = 'black')
+plt.axvline(x =0, color = 'black')
+
+plt.plot(x, yh,"blue")
+plt.plot(x,-yh,"green")
+
+plt.plot(yh,x,"turquoise")
+plt.plot(-yh,x,"pink")
+
+# plt.savefig('hyperbole.png', bbox_inches='tight')
+
+plt.show()
+"""
+Created on Tue Apr 27 16:12:19 2021
+
+@author: bebo
+"""
+# import des librairies
+import numpy as np # librairie mathématique
+import matplotlib.pyplot as plt # Génération de graphiques
+
+x=np.linspace(-30,30,1000)
+
+###### hyperbole  (x^2 /a^2) - (y^2 / b^2)= 1 a= 2 b =1
+######       (x^2 /2^2) -  (y^2 /1^2 )  =1
+######       y = sqrt( ( x^2 /4) - 1)
+
+yh = np.sqrt(((x**2)/4) - 1) # ne pas utiliser math.sqrt !!!!
+
+### RuntimeWarning: invalid value encountered in sqrt x == 0 --> A commenter
+
+# Placement des axes du graphique
+plt.axhline(y = 0, color = 'black')
+plt.axvline(x =0, color = 'black')
+
+# lignes partants de x variant selong la formule de yh
+plt.plot(x, yh,"blue")
+plt.plot(x,-yh,"green")
+
+plt.plot(yh,x,"turquoise")
+plt.plot(-yh,x,"pink")
+
+# plt.savefig('hyperbole.png', bbox_inches='tight')
+
+# Afficher le plot
+plt.show()
+3.Soit Voiture : classe mère.
+Soit Pijo, Rino, Bem, Hodi des classes filles qui héritent donc de Voiture.
+Soit les ‘methodes ‘ suivantes : prix, vitesse, puissance qui font afficher leur prix, vitesse, puissance pour chaque sous-classe.
+Faire un graphe colorié d’affichage de ces éléments
+Ecrire en Python cette application.
+Chaque ligne de code sera commentée !!
+abstract class Voiture():
+     vitesse: int = 0
+     prix: int = 0
+
+     def prix(self):
+          return self.prix
+     def vitesse(self):
+          return self.vitesse
+
+class Pijo(Voiture):
+     pass
+
+Ce contenu est créé par le propriétaire du formulaire. Les données que vous soumettez sont envoyées au propriétaire du formulaire. Microsoft n’est pas responsable des pratiques de confidentialité ou de sécurité de ses clients, y compris celles de ce propriétaire de formulaire. Ne donnez jamais votre mot de passe.
+Avec Microsoft Forms | Confidentialité et cookies | Conditions d’utilisation | Accessibilité
