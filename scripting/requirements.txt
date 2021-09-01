@@ -1,8 +1,0 @@
-# Scripting research libs
-scipy
-numpy
-matplotlib
-pandas
-# jupyter on vscode requirements
-jupyter
-ipykernel

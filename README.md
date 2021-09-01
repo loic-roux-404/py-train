@@ -1,54 +1,30 @@
 # Cours basés sur python
 
-1. [Algorithmique avancée et structures de données](#Algo)
+### Install windows
 
-1. [IA et recherche opérationnelle](#AI)
+```ps1
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+puis :
 
-# Algo
-> **Algorithmique avancée et structures de données**
+```bash
+choco install miniconda3
+```
 
-#### 0. Requis
+### Install mac
 
-- `python 3.x`
+- `brew install miniconda`
 
-#### 1. Introduction : algorithmes
+### Then
 
-- Organigrammes (losange pour représenter une condition)
-- Suite de syracuse
-- scratch (algo GUI)
-- Q# --> simulation des proc quantiques
-
-#### 2. Python
-
-- haut niveau
-- structure de données évoluée : ensembles, listes, dict,...
-- open source / beaucoup de documentation
-
-1. Debug
-
-- Coeff binomial `python advanced-algo/intro.py`
-- Coeff binomial `python advanced-algo/recursions/simple.py`
-- Tri fusion `python advanced-algo/recursions/mergeSort.py`
-
-## Env
-
-- `conda` package manager recommanded (installed over miniconda)
-
-# AI
-> Ia et recherche opérationnelle
-
-## Install
-
-- Required `conda` package manager [(download windows)](https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe)
 - Add more packages channels : `conda config --add channels conda-forge`
 - Create env :
 ```sh
-conda create -y --name op-research python=3.7 --file op-research/requirements.txt
+cd advanced-algo && conda create -y --name $(basename "$PWD") python=3.7 --file requirements.txt
 ```
 
 - Launch : `conda activate op-research`
 - Switch python interpreter to this env on Vscode bottom left
-- (Optional) Jupyter notebook : `jupyter notebook --generate-config`
 - To stop venv : `conda deactivate`
 
 > For more on conda : [Here the cheatseet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)
