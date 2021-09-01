@@ -8,7 +8,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 puis :
 
 ```bash
-choco install miniconda3
+choco install -y miniconda3 --params="'/AddToPath:1'" --force
 ```
 
 ### Install mac
