@@ -1,0 +1,22 @@
+Bordeaux,33000
+Ambares-et-Lagrave,33440
+Ambes,33810
+Artigues-pres-Bordeaux,33370
+Brassens,33530
+Begles,33130
+Blanquefort,33290
+Bruges,33520
+Carbon-Blanc,33560
+Cenon,33150
+Eysines,33320
+Floriac,33270
+Gradignan,33170
+Le Bouscat,33110
+Le Haillan,33185
+Lormont,33310
+Martignas-sur-Jalle,33127
+Merignac,33700
+Pessac,33600
+Saint-Aubin-de-Medoc,33160
+Talence,33400
+Ornon,33140
