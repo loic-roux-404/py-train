@@ -4,6 +4,8 @@
 
 1. [IA et recherche opérationnelle](#AI)
 
+`pip install jupyterthemes` for themes
+
 # Algo
 > **Algorithmique avancée et structures de données**
 

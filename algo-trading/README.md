@@ -39,8 +39,7 @@ In postalcode.txt, there are two columns, i.e., name of city and its postal code
 ( 3 pts) (A) Please write a Python code to read all postal codes and save them in a list.
 
 ( 3 pts) (B) Continue with (A). Please export descriptive statistics of the price and size of apartments
-
-## (i.e., mean, std, min, max, median, Q25 and Q75) for every postal code (that you read in A) as a CSV
+(i.e., mean, std, min, max, median, Q25 and Q75) for every postal code (that you read in A) as a CSV
 
 ## file (e.g., 33110.csv, 33440.csv and so on) in Bordeaux Metropole.
 
