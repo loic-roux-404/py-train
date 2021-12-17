@@ -17,7 +17,6 @@ app = app_server.get_app()
 hospital_host = "http://%s" % (app_server.get_param('hospital'))
 
 def hospital_get_request(route = "/", params = {}):
-    print(requests.get('%s/%s/%s' % (hospital_host, route, request.host), params=params))
     return requests.get('%s/%s/%s' % (hospital_host, route, request.host), params=params).json()
 
 def hospital_post_request(route, json: dict):
@@ -37,5 +36,9 @@ def declare_change_hospital(covid = None):
 @app.route('/read-messages', methods=['GET'])
 def read_messages():
 	return hospital_get_request('read-messages')
+
+@app.route('/read-cases', methods=['GET'])
+def list_covid():
+    return hospital_get_request('read-cases')
 
 app_server.start(True)

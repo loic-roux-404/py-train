@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from flask import request
-from flask.wrappers import Response
 from tinydb.queries import Query
 import argparse
 
@@ -21,10 +20,10 @@ app = app_server.get_app()
 
 @app.route('/', methods=['GET'])
 def index():
-	return Response({
+	return {
         'messages': db_message.all(),
         'clients': db_client.all()
-    })
+    }
 
 @app.route('/hear/<host>', methods=['POST'])
 def hear(host):
@@ -46,6 +45,8 @@ def declare(host, covid):
         client = db_client_queries.find(host)
 
     declared = client.declare_covid(covid)
+    # Mettre à jour le status du client
+    db_client.insert(client)
 
     return {"declared": declared}
 
@@ -61,5 +62,12 @@ def read_messages(host):
         return db_message.search(message.host == host)
 
     return db_message.all()
+
+@app.route('/read-cases/<host>', methods=['GET'])
+def list_covid(host):
+    print("Host %s reading covid cases" % host)
+    c: Query = Query();
+
+    return db_client.search(c.covid_date_start != None)
 
 app_server.start(debug)

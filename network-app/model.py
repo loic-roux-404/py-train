@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 import json
 from tinydb import TinyDB, Query
 
@@ -51,16 +51,19 @@ class Client(entity):
         covid = json.loads(covid.lower())
 
         if not self.covid_date_start and covid:
-            self.covid_date_start = date.today()
+            self.covid_date_start = date.today().strftime("%d%m%Y")
             return covid
 
         if not covid:
-            self.covid_date_start = True
+            self.covid_date_start = None
+
+        self.expired_covid()
 
         return covid
 
-    def has_covid(self):
-        if abs(self.covid_date_start - date.today()).days >= self.QUANRANTINE_DURATION:
+    def expired_covid(self):
+        covid_date = datetime.strptime(self.covid_date_start, '%d%m%Y')
+        if abs(covid_date - date.today()).days >= self.QUANRANTINE_DURATION:
             self.covid_date_start = None
 
     @staticmethod
@@ -101,7 +104,4 @@ class Message(entity):
     @staticmethod
     def fromDict(d: dict):
         print(d)
-        return Message(
-            d['txt'],
-            d['host'],
-        )
+        return Message(d['txt'], d['host'])
