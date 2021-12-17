@@ -1,0 +1,44 @@
+Issue ID,URL,Title,State,Description,Author,Author Username,Assignee,Assignee Username,Confidential,Locked,Due Date,Created At (UTC),Updated At (UTC),Closed At (UTC),Milestone,Weight,Labels,Time Estimate,Time Spent
+1,https://framagit.org/lzbk/insa-sid-tp-covid/-/issues/1,Classe ``Message``,Open,"La classe ``Message`` doit permettre de générer des messages uniques et anonymes.
+
+Cette [classe](https://docs.python.org/3/tutorial/classes.html#class-objects) contient avant tout un [constucteur](https://docs.python.org/3/reference/datamodel.html#object.__init__).
+
+**Une** stratégie (on peut en utiliser bien d'autres, ne lire que si vous n'avez pas d'idée) pour s'assurer d'avoir un code unique pourrait être de concaténer l'instant de création à une chaine de caractères aléatoire et de hasher le résultat… Pour cela, les fonctions suivantes peuvent aider :
+* [``time.time``](https://docs.python.org/3/library/time.html#time.time)
+* [``secrets.token_urlsafe``](https://docs.python.org/3/library/secrets.html#secrets.token_urlsafe)
+* [``hashlib``](https://docs.python.org/3/library/hashlib.html)",Mathieu,lzbk,"","",No,No,,2020-11-02 19:43:39,2020-11-02 23:38:34,,,,,0,0
+2,https://framagit.org/lzbk/insa-sid-tp-covid/-/issues/2,Classe ``MessageCatalog``,Open,"'Le système devra pouvoir jouer tous les rôles :
+* dire
+* entendre
+* recenser les messages dits par les malades (si le système doit jouer le rôle de serveur)
+Ainsi, cette classe a pour vocation de stocker en local :
+* les messages “ce que j'ai dit” 
+* les messages “ce que j'ai entendu”
+* les messages “ce que les malades covid ont dit”
+   * en tant que terminal d'utilisateur (reçoit les messages passés par le serveur)
+   * en tant que serveur de serveur (celui qui reçoit tous les messages des malades et qui peut être interrogé par chaque client pour lui donner la liste des messages émis par des malades attestés)
+
+Il faut donc pouvoir :
+- [ ] Lire les messages existants dans le système
+- [ ] Ajouter de nouveaux messages
+- [ ] Dater les messages
+- [ ] Identifier s'il s'agit d'un message “ce que j'ai dit”, “ce que j'ai entendu” ou “ce qu'ils ont dit”
+- [ ] Filtrer parmi les messages de chaque type
+- Tout cela pour pouvoir :
+  - [ ] Exporter une liste de messages “ce que j'ai dit”
+  - [ ] Exporter une liste de messages “ce qu'ils ont dit”
+  - [ ] Importer une liste de messages “ce qu'ils ont dit”
+  - [ ] Supprimer les messages périmés ;
+  - [ ] Dire si un utilisateur doit se mettre en quarantaine.
+
+Cette classe est dépendante du besoin #3",Mathieu,lzbk,"","",No,No,,2020-11-03 00:00:05,2020-11-03 00:03:20,,,,,0,0
+3,https://framagit.org/lzbk/insa-sid-tp-covid/-/issues/3,"Formalismes stockage, import, export",Open,"'Grâce à la classe [``MessageCatalog``](#2) système doit pouvoir :
+* stocker les messages ;
+* exporter les messages ;
+* importer les messages.
+
+Pour cela, il faudra définir :
+- [ ] un formalisme (technologie + structuration) de représentation des données internes au programme (*accord intra-groupe*)
+- [ ] un formalisme d'import/export qui soit *commun à au moins 3 groupes* (pour cela, il faudra que les groupes se mettent d'accord entre eux).
+
+Selon la/les technologie(s) choisie(s) et l'accord entre les groupes, les deux formalismes peuvent être identiques (mais ce n'est pas nécessaire), il faut juste que le modèle puisse être représenté par le formalisme d'import/export.",Mathieu,lzbk,"","",No,No,,2020-11-03 00:03:20,2020-11-03 00:04:26,,,,,0,0
