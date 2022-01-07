@@ -1,0 +1,5 @@
+# Graphviz generated
+*.gv.*
+*.gv
+__pycache__
+.DS_Store

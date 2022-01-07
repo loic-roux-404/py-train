@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from datetime import date, datetime
 import json
 from tinydb import TinyDB, Query
@@ -67,7 +68,8 @@ class Client(entity):
             self.covid_date_start = None
 
     @staticmethod
-    def fromDict(d: dict):
+    def fromDict(ctx, d: dict):
+        ctx.QUANRANTINE_DURATION
         obj_messages: list[Message] = []
 
         for _, msg in d['messages']:

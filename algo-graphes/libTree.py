@@ -1,17 +1,20 @@
-class Leaf:
+from binarytree import Node
+
+class Leaf(Node):
     def __init__(self, tag: str):
+        super().__init__(tag)
         self.tag = tag
         self.parent = None
         self.right = None
         self.left = None
 
-    def add_right(self, lf: 'Leaf'):
+    def add_right(self, lf: "Leaf"):
         lf.parent = self
         self.right = lf
 
         return self
 
-    def add_left(self, lf: 'Leaf'):
+    def add_left(self, lf: "Leaf"):
         lf.parent = self
         self.left = lf
 
@@ -34,7 +37,7 @@ class Leaf:
     def search(self, tag):
         n = self
         if n.parent != None:
-            n = self.genesis_node()
+            n = self.root_node()
 
         return n._search(tag)
 
@@ -54,14 +57,56 @@ class Leaf:
         if self.right != None:
             self.right.infix_dump()
 
-    def genesis_node(self):
+    def width_dump(self):
+        queue = [self]
+        res = []
+
+        while len(queue) >= 1:
+            current = queue.pop(0)
+            res.append(current)
+            current_childs = (current.left or None, current.right or None)
+
+            if current_childs != None:
+                for child in current_childs:
+                    if child is None:
+                        continue
+                    queue.append(child)
+
+        for n in res:
+            print(n.tag)
+
+    def prefix_dump(self):
+        print(self.tag)
+        childs = (self.left or None, self.right or None)
+        if childs is None:
+            return
+
+        for child in childs:
+            if child is None:
+                continue
+            child.prefix_dump()
+
+    def suffix_dump(self):
+        childs = (self.left, self.right)
+        if childs is None:
+            return
+
+        for child in childs:
+            if child is None:
+                continue
+            child.suffix_dump()
+
+        print(self.tag)
+
+    def root_node(self):
         p = self
         while p.parent != None:
             p = p.parent
 
         return p
 
-def tree_from_list(l: 'Leaf', tags: 'list[int]'):
+
+def tree_from_list(l: "Leaf", tags: "list[int]"):
     if len(tags) == 0:
         return l
 
@@ -77,3 +122,10 @@ def tree_from_list(l: 'Leaf', tags: 'list[int]'):
         tree_from_list(l.right, tags)
 
     return l
+
+def rotate_node_left(leaf: 'Leaf'):
+    if leaf.right is not None:
+        leaf.right.left = Leaf(leaf.tag)
+
+    return leaf.right
+
