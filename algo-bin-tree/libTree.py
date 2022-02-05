@@ -1,5 +1,7 @@
 from binarytree import Node
 
+
+
 class Leaf(Node):
     def __init__(self, tag: str):
         super().__init__(tag)
@@ -78,8 +80,6 @@ class Leaf(Node):
     def prefix_dump(self):
         print(self.tag)
         childs = (self.left or None, self.right or None)
-        if childs is None:
-            return
 
         for child in childs:
             if child is None:
@@ -88,8 +88,6 @@ class Leaf(Node):
 
     def suffix_dump(self):
         childs = (self.left, self.right)
-        if childs is None:
-            return
 
         for child in childs:
             if child is None:
