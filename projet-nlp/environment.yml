@@ -24,3 +24,4 @@ dependencies:
   - sphinx-copybutton
   # deploy to pip
   - twine
+  - wordcloud
