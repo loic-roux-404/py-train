@@ -6,11 +6,11 @@ from IPython.core.display import SVG
 sys.setrecursionlimit(20000)
 
 class Graph(object):
-    def __init__(self, nodes: list['Node'], gtype = "digraph"):
+    def __init__(self, nodes: list["Node"], gtype="digraph"):
         self.nodes = nodes
         self.gtype = gtype
 
-    def show(self) -> 'SVG':
+    def show(self) -> "SVG":
         graph = pydot.Dot("graphic", graph_type=self.gtype, bgcolor="white")
 
         for child in self.nodes:
@@ -18,10 +18,9 @@ class Graph(object):
 
         return SVG(data=graph.create_svg())
 
-    def get_by_tag(self, tag) -> 'Node':
-        #print("searching %s" % tag)
-        res = list(map(lambda x: x if x.tag == tag else None, self.nodes))
-        #print(self.nodes)
+    def get_by_tag(self, tag) -> "Node":
+        res = list(filter(lambda x: x.tag == tag, self.nodes))
+
         if len(res) > 0:
             return res[0]
 
@@ -31,36 +30,50 @@ class Graph(object):
         return self._to_tags(self.nodes)
 
     @classmethod
-    def _to_tags(self, nodes: list['Node']) -> list:
+    def _to_tags(self, nodes: list["Node"]) -> list:
         return list(map(lambda x: x.tag, nodes))
 
-class Node():
+class Node:
     def __init__(self, tag: str):
-        self.tag = tag
-        self.nodes = []
+        self.tag: str = tag
+        self.weight = 0
+        self.nodes: list["Node"] = []
 
-    def get_graph(self, graph: 'pydot.Dot' = None) -> Graph:
+    def get_graph(self, graph: "pydot.Dot" = None, visited: list['Node'] = []) -> Graph:
         if graph is None:
             graph = pydot.Dot("graphic", graph_type="digraph", bgcolor="white")
 
-        childs = self.__dict__().items()
-
         graph.add_node(pydot.Node(self.tag))
 
-        for tag, childs in childs:
-            graph.add_node(pydot.Node(tag))
+        for child in self.nodes:
+            visited_id = "%s-%s" % (self.tag, child.tag)
 
-            for c in childs:
-                if len(graph.get_edge(tag, c)) > 0:
-                    continue
-                graph.add_edge(pydot.Edge(tag, c, color="black"))
+            if visited_id in visited:
+                continue
+
+            graph.add_node(pydot.Node(child.tag))
+            visited.append(visited_id)
+
+            if len(graph.get_edge(self.tag, child.tag)) > 0:
+                continue
+
+            graph.add_edge(pydot.Edge(self.tag, child.tag, color="black"))
+
+            child.get_graph(graph, visited)
 
         return graph
 
-    def show(self) -> 'SVG':
+    def dijkstra(self: 'Node', dest: 'Node') -> list["Node"]:
+        s, lambd, p = [[], [], []]
+        print(s, lambd, p)
+        print(self, dest)
+
+        return []
+
+    def show(self) -> "SVG":
         return SVG(data=self.get_graph().create_svg())
 
-    def is_reachable(self, n: 'Node', already_tested = []) -> bool:
+    def is_reachable(self, n: "Node", already_tested=[]):
         res = False
         for child in self.nodes:
             already_tested.append(child)
@@ -68,39 +81,26 @@ class Node():
             if n == child:
                 res = True
                 break
-            res = child.is_reachable(n, already_tested)
+            res, already_tested = child.is_reachable(n, already_tested)
 
-        return res
+        return (res, already_tested)
 
-    def deep_search(self: 'Node', visited: list['Node'] = [], dest: 'Node' = None) -> list['Node']:
-        if self in visited or (dest != None and dest in visited):
+    def deep_search(
+        self: "Node", visited: list["Node"] = [], dest: "Node" = None, graph: Graph = None
+    ) -> list["Node"]:
+
+        if dest in visited or (graph != None and len(visited) >= len(graph.nodes)):
             return visited
 
         visited.append(self)
 
         for n in self.nodes:
-            visited = n.deep_search(visited, dest)
+            visited = n.deep_search(visited, dest, graph)
 
         return visited
 
-    def __dict__(self):
-        def to_child_tags(childs: list[Node]) -> list:
-            return list(map(lambda x : x.tag, childs))
-
-        node_dict = {self.tag: to_child_tags(self.nodes)}
-        tmp_nodes = self.nodes
-
-        def nodes_to_dict(tmp_nodes):
-            for i, n in enumerate(tmp_nodes):
-                if n.tag in node_dict:
-                    del tmp_nodes[i]
-                    continue
-                node_dict[n.tag] = to_child_tags(n.nodes)
-                nodes_to_dict(n.nodes)
-
-        nodes_to_dict(tmp_nodes)
-
-        return node_dict
+    def debug_nodes(self):
+        print(list(map(lambda x: x.tag, self.nodes)))
 
 # TODO create result with splitted graphs
 def matrix_to_graph(matrix: np.array, labels: list[str] = []) -> Graph:
@@ -122,12 +122,7 @@ def matrix_to_graph(matrix: np.array, labels: list[str] = []) -> Graph:
         for icol, col in enumerate(row):
             if col >= 1:
                 for _ in range(0, col):
+                    n.weight = col
                     res[icol].nodes.append(n)
 
     return Graph(res)
-
-def dijkstra(src: Node, dest: Node) -> list['Node']:
-    s, lambd, p = [[], [], []]
-    print(s, lambd, p)
-    print(src, dest)
-
