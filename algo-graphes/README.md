@@ -19,5 +19,6 @@ Vous comparerez les résultats en temps de transport prévu pour l’utilisateur
 
 - [x] Effectuer l’algorithme de graphe en profondeur modifié permettant de donner le chemin entre La rivière et Saint Joseph
 
-- [ ] Implémenter ce graphe à l’aide de sa matrice d’adjacence #projet
-- [ ] Mettre un œuvre l’algorithme de parcours en profondeur pour déterminer si un chemin existe entre le 2ème et 6ème sommet et donner, en cas de réponse favorable, un chemin. #projet
+- [x] Implémenter ce graphe à l’aide de sa matrice d’adjacence #projet
+- [x] Mettre un œuvre l’algorithme de parcours en profondeur pour déterminer si un chemin existe entre le 2ème et 6ème sommet et donner, en cas de réponse favorable, un chemin. #projet
+- [x] Dijkstra

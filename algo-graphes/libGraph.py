@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.linalg import matrix_power
 import sys
 import pydot
 from IPython.core.display import SVG
@@ -8,9 +9,10 @@ from typing import Union
 sys.setrecursionlimit(10000)
 
 class Graph(object):
-    def __init__(self, nodes: list["Node"], gtype="digraph"):
+    def __init__(self, nodes: list["Node"], gtype="digraph", matrix: np.array = np.array([])):
         self.nodes = nodes
         self.gtype = gtype
+        self.matrix = matrix if len(matrix) > 0 else self.matrix_from_graph()
 
     def show(self) -> "SVG":
         graph = pydot.Dot("graphic", graph_type=self.gtype, bgcolor="white")
@@ -27,6 +29,21 @@ class Graph(object):
             return res[0]
 
         return None
+
+    def matrix_from_graph(self) -> np.array:
+        m = np.array([np.array([0 for _ in range(0, len(self.nodes))]) for _ in range(0, len(self.nodes))])
+
+        for i, n1 in enumerate(self.nodes):
+            for n2 in n1.nodes:
+                n2_index = self.nodes.index(n2)
+                m[n2_index][i] = 1
+
+        return m
+
+    def transitive_closure_matrix(self):
+        pwed_mx = matrix_power(self.matrix, 2)
+
+        return pwed_mx
 
     def to_tags(self):
         return self._to_tags(self.nodes)
@@ -129,17 +146,8 @@ class Node:
     def show(self) -> "SVG":
         return SVG(data=self.get_graph().create_svg())
 
-    def is_reachable(self, n: "Node", already_tested=[]):
-        res = False
-        for child in self.nodes:
-            already_tested.append(child)
-
-            if n == child:
-                res = True
-                break
-            res, already_tested = child.is_reachable(n, already_tested)
-
-        return (res, already_tested)
+    def is_reachable(self, n: "Node"):
+        return len(self.deep_search(n)) > 0
 
     def deep_search(self, dest: 'Node') -> list['Node']:
         res = self.deep_path()
@@ -171,7 +179,15 @@ class Node:
     def debug_node_list(l: list['Node']):
         print(list(map(lambda x: x.tag if x != None else "NULL", l)))
 
-# TODO create result with splitted graphs
+
+def has_index(ls, i) ->bool :
+    try:
+        ls[i]
+        return True
+        # Do something with item
+    except IndexError:
+        return False
+
 def matrix_to_graph(matrix: np.array, labels: list[str] = []) -> Graph:
 
     if len(matrix) <= 0 and len(matrix[0]) <= 0:
@@ -180,7 +196,7 @@ def matrix_to_graph(matrix: np.array, labels: list[str] = []) -> Graph:
     res: list[Node] = []
 
     def label_from_row(irow: int) -> str:
-        l = labels[irow] if irow < len(labels) else irow
+        l = labels[irow] if has_index(labels, irow) else irow
         return str(l)
 
     for irow, _ in enumerate(matrix):
@@ -194,4 +210,4 @@ def matrix_to_graph(matrix: np.array, labels: list[str] = []) -> Graph:
                     res[icol].nodes.append(n)
                     res[icol].vertex_weights.append(col)
 
-    return Graph(res)
+    return Graph(nodes=res, matrix=matrix)
