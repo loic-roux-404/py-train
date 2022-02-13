@@ -2,8 +2,10 @@ import numpy as np
 import sys
 import pydot
 from IPython.core.display import SVG
+import math
+from typing import Union
 
-sys.setrecursionlimit(20000)
+sys.setrecursionlimit(10000)
 
 class Graph(object):
     def __init__(self, nodes: list["Node"], gtype="digraph"):
@@ -33,10 +35,13 @@ class Graph(object):
     def _to_tags(self, nodes: list["Node"]) -> list:
         return list(map(lambda x: x.tag, nodes))
 
+    def dijkstra(self: 'Graph', src: 'Node', dest: 'Node') -> Union[list['Node'], int]:
+        return src.dijkstra(dest, self.nodes)
+
 class Node:
     def __init__(self, tag: str):
         self.tag: str = tag
-        self.weight = 0
+        self.vertex_weights = []
         self.nodes: list["Node"] = []
 
     def get_graph(self, graph: "pydot.Dot" = None, visited: list['Node'] = []) -> Graph:
@@ -45,7 +50,7 @@ class Node:
 
         graph.add_node(pydot.Node(self.tag))
 
-        for child in self.nodes:
+        for i, child in enumerate(self.nodes):
             visited_id = "%s-%s" % (self.tag, child.tag)
 
             if visited_id in visited:
@@ -57,18 +62,69 @@ class Node:
             if len(graph.get_edge(self.tag, child.tag)) > 0:
                 continue
 
-            graph.add_edge(pydot.Edge(self.tag, child.tag, color="black"))
+            graph.add_edge(pydot.Edge(self.tag, child.tag, color="black", label=self.vertex_weights[i]))
 
             child.get_graph(graph, visited)
 
         return graph
 
-    def dijkstra(self: 'Node', dest: 'Node') -> list["Node"]:
-        s, lambd, p = [[], [], []]
-        print(s, lambd, p)
-        print(self, dest)
+    @staticmethod
+    def min_path_weight(nodes_weights: list['int']) -> int:
+        mini = math.inf
 
-        return []
+        for weight in nodes_weights:
+            if weight == math.inf:
+                continue
+
+            if mini == math.inf and type(weight) == int and weight <= 0:
+                mini = weight
+                continue
+
+            if mini >= float(weight) and weight <= 0:
+                continue
+
+            mini = weight
+
+        return mini
+
+    def dijkstra(self: 'Node', dest: 'Node', all_nodes: list['Node']) -> Union[list['Node'], int]:
+        paths_weight = list(map(lambda _: math.inf, all_nodes))
+
+        start = all_nodes.index(self)
+        queue = [all_nodes[start]]
+        path = []
+        paths_weight[start] = 0
+
+        while len(queue) > 0:
+            # all_nodes.
+            n1 = queue.pop(0)
+            path.append(n1)
+
+            n1_current_best_distance = paths_weight[all_nodes.index(n1)]
+            n1_current_best_distance = n1_current_best_distance if n1_current_best_distance != math.inf else 0
+            current_node_path_weights = list(map(lambda _: math.inf, all_nodes))
+
+            for i, n2 in enumerate(n1.nodes):
+                n2_pos = all_nodes.index(n2)
+
+                # Check if node has already been visted
+                if paths_weight[n2_pos] != math.inf:
+                    continue
+
+                n1_to_n2_d = n1.vertex_weights[i]
+                current_node_path_weights[n2_pos] = n1_to_n2_d
+
+                cumulative_distance_n1_to_n2 = n1_to_n2_d + n1_current_best_distance
+                paths_weight[n2_pos] = cumulative_distance_n1_to_n2
+
+            min_path_index = current_node_path_weights.index(Node.min_path_weight(current_node_path_weights))
+
+            if min_path_index != math.inf and paths_weight[all_nodes.index(dest)] == math.inf:
+                queue.append(all_nodes[min_path_index])
+
+        path.append(dest)
+
+        return path, paths_weight[all_nodes.index(dest)]
 
     def show(self) -> "SVG":
         return SVG(data=self.get_graph().create_svg())
@@ -85,22 +141,35 @@ class Node:
 
         return (res, already_tested)
 
-    def deep_search(
-        self: "Node", visited: list["Node"] = [], dest: "Node" = None, graph: Graph = None
-    ) -> list["Node"]:
+    def deep_search(self, dest: 'Node') -> list['Node']:
+        res = self.deep_path()
+        res_stopping_to_dest = []
 
-        if dest in visited or (graph != None and len(visited) >= len(graph.nodes)):
+        for n in res:
+            res_stopping_to_dest.append(n)
+
+            if n.tag == dest.tag:
+                break
+
+        return res_stopping_to_dest if dest in res_stopping_to_dest else []
+
+    def deep_path(self: "Node", visited: list["Node"] = []) -> list["Node"]:
+        if self in visited:
             return visited
 
         visited.append(self)
 
         for n in self.nodes:
-            visited = n.deep_search(visited, dest, graph)
+            visited = n.deep_path(visited)
 
         return visited
 
     def debug_nodes(self):
-        print(list(map(lambda x: x.tag, self.nodes)))
+        Node.debug_node_list(self.nodes)
+
+    @staticmethod
+    def debug_node_list(l: list['Node']):
+        print(list(map(lambda x: x.tag if x != None else "NULL", l)))
 
 # TODO create result with splitted graphs
 def matrix_to_graph(matrix: np.array, labels: list[str] = []) -> Graph:
@@ -122,7 +191,7 @@ def matrix_to_graph(matrix: np.array, labels: list[str] = []) -> Graph:
         for icol, col in enumerate(row):
             if col >= 1:
                 for _ in range(0, col):
-                    n.weight = col
                     res[icol].nodes.append(n)
+                    res[icol].vertex_weights.append(col)
 
     return Graph(res)
