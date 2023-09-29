@@ -2,5 +2,6 @@
     "python.formatting.provider": "black",
     "python.pythonPath": "/usr/local/Caskroom/miniconda/base/envs/advanced-algo/bin/python",
     "python.dataScience.jupyterServerURI": "local",
-    "python.languageServer": "Pylance"
+    "python.languageServer": "Pylance",
+    "ltex.language": "fr"
 }
